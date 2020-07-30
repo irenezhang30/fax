@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="f7b48d49-d69b-4eea-b2a2-314f32c223a5" name="mila1" url="http:///">
+        <fileTransfer host="login-1.login.server.mila.quebec" port="2222" rootFolder="/home/mila/z/zhangire" accessType="SFTP" authAgent="true">
+          <option name="port" value="2222" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
