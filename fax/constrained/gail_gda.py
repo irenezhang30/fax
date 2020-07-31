@@ -13,6 +13,7 @@ temperature = 1e-2
 true_discount = 0.9
 traj_len = 100
 initial_distribution = jnp.ones(2) / 2
+# model policy should converge to this value
 policy_expert = jnp.array(([[0.4, 0.6],
                             [0.4,  0.6]]))
 key = random.PRNGKey(0)
