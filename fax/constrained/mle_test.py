@@ -2,8 +2,6 @@ from absl.testing import absltest
 from absl.testing import parameterized
 
 import numpy as onp
-#
-import hypothesis.extra.numpy
 
 import jax.test_util
 import jax.numpy as np

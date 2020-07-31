@@ -7,16 +7,16 @@ from jax.experimental import optimizers
 from jax.experimental.stax import softmax
 from jax.random import bernoulli
 
-true_transition = jnp.array([[[0.4, 0.6], [0.3, 0.7]],
-                             [[0.8, 0.2], [0.8, 0.2]]])
+key = random.PRNGKey(0)
 temperature = 1e-2
 true_discount = 0.9
 traj_len = 100
 initial_distribution = jnp.ones(2) / 2
+true_transition = jnp.array([[[0.4, 0.6], [0.3, 0.7]],
+                             [[0.8, 0.2], [0.8, 0.2]]])
 # model policy should converge to this value
 policy_expert = jnp.array(([[0.4, 0.6],
                             [0.4,  0.6]]))
-key = random.PRNGKey(0)
 
 
 def get_new_key():
@@ -72,6 +72,7 @@ def discounted_reward(rewards, t, gamma=0.9):
     return G
 
 
+# helper for value estimation
 def sample_rewards(policy, discriminator, initialization=False, initial_state=0):
     global key
     get_new_key()
@@ -84,12 +85,12 @@ def sample_rewards(policy, discriminator, initialization=False, initial_state=0)
     traj = []
     traj.append((s, a))
     returns = []
-    returns.append(discriminator[s][a])
+    returns.append(jnp.log(discriminator[s][a]))
 
     for i in range(traj_len - 1):
         s, a = roll_out(s, a, true_transition, policy)
         traj.append((s, a))
-        returns.append(discriminator[s][a])
+        returns.append(jnp.log(discriminator[s][a]))
 
     return jnp.array(copy.deepcopy(returns)), jnp.array(copy.deepcopy(traj))
 
